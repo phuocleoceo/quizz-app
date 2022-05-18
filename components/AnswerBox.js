@@ -1,16 +1,18 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from "react";
 
-export default function AnswerBox({ answer, isChoosen, index, onChoosen })
+export default function AnswerBox({ answer, isChoosen, index, onChoosen, isPressed, trueAnswer })
 {
     /*
     answer : câu trả lời
     isChoosen : câu này có đuọc chọn không ?
     index : index của câu trả lời hiện tại
     onChoosen : cập nhật lại index của câu trả lời đang đươc chọn thành index của câu này
+    isPressed : đã press để chọn câu trả lời hay chưa
+    trueAnswer : câu trả lời đúng
     */
     return (
-        <TouchableOpacity style={styles.answerBox} onPress={() => onChoosen(index)}>
+        <TouchableOpacity disabled={isPressed} style={styles.answerBox} onPress={() => onChoosen(index)}>
             {
                 isChoosen ?
                     <View style={styles.circleChoosen1}>

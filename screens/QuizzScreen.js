@@ -13,8 +13,12 @@ export default function QuizzScreen()
 {
     const { listQuizz, isLoading, currentQuizz } = useSelector(state => state.quizz);
     const { Load_Quizz_API, Set_Current_Quizz } = useQuizzAPI();
+    // Index của câu hỏi hiện tại trong bộ câu hỏi
     const [quizzIndex, setQuizzIndex] = useState(0);
+    // Index của câu trả lời được chọn
     const [quizzChoosen, setQuizzChoosen] = useState(-1);
+    // Mỗi câu hỏi chỉ được chọn đáp án 1 lần
+    const [isPressed, setIsPressed] = useState(false);
 
     useEffect(() =>
     {
@@ -33,11 +37,14 @@ export default function QuizzScreen()
         setQuizzIndex(quizzIndex => quizzIndex + 1);
         // Reset index của câu trả lời được chọn
         setQuizzChoosen(-1);
+        // Set lại là chưa chọn câu trả lời cho câu hỏi tiếp theo
+        setIsPressed(false);
     };
 
     const handleChoosen = (index) =>
     {
         setQuizzChoosen(index);
+        setIsPressed(true);
     };
 
     return (
@@ -57,11 +64,15 @@ export default function QuizzScreen()
                         <View style={styles.answer}>
                             {
                                 currentQuizz.choices.map((answer, index) => (
-                                    index === quizzChoosen ?
+                                    index === quizzChoosen
+                                        ?
                                         <AnswerBox key={index} answer={answer} isChoosen={true}
-                                            index={index} onChoosen={handleChoosen} />
-                                        : <AnswerBox key={index} answer={answer} isChoosen={false}
-                                            index={index} onChoosen={handleChoosen} />
+                                            index={index} onChoosen={handleChoosen}
+                                            isPressed={isPressed} trueAnswer={currentQuizz.answer} />
+                                        :
+                                        <AnswerBox key={index} answer={answer} isChoosen={false}
+                                            index={index} onChoosen={handleChoosen}
+                                            isPressed={isPressed} trueAnswer={currentQuizz.answer} />
                                 ))
                             }
                             <NextQuizz onNextQuizz={handleNextQuizz} />
