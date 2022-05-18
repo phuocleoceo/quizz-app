@@ -12,16 +12,20 @@ export default function AnswerBox({ answer, isChoosen, index, onChoosen, isPress
     trueAnswer : câu trả lời đúng
     */
     return (
-        <TouchableOpacity disabled={isPressed} style={styles.answerBox} onPress={() => onChoosen(index)}>
+        <TouchableOpacity disabled={isPressed} onPress={() => onChoosen(index)}
+            style={[styles.answerBox,
+            isPressed && trueAnswer === answer && { borderColor: "#16630e" },
+            isPressed && trueAnswer !== answer && { borderColor: "#8a1919" }]}
+        >
             {
-                isChoosen ?
+                isChoosen
+                    ?
                     <View style={styles.circleChoosen1}>
                         <View style={styles.circleChoosen2}></View>
                     </View>
                     :
                     <View style={styles.circle}></View>
             }
-
             <Text style={styles.answerContent}>{answer}</Text>
         </TouchableOpacity>
     )
