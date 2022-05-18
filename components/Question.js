@@ -14,7 +14,7 @@ export default function Question({ currentQuizz })
 
 const styles = StyleSheet.create({
     questionContent: {
-        color: "white",
+        color: "#b5aeae",
         fontSize: 15,
     },
 });

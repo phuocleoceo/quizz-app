@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
         fontSize: 25,
         fontWeight: "bold",
         color: "#667186",
+        marginBottom: 25
     },
     quizzLength: {
         fontSize: 12,

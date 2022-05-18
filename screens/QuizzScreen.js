@@ -3,6 +3,7 @@ import AnswerCount from "../components/AnswerCount";
 import DashedLine from 'react-native-dashed-line';
 import AnswerBox from "../components/AnswerBox";
 import { StyleSheet, View } from 'react-native';
+import NextQuizz from "../components/NextQuizz";
 import useQuizzAPI from "../hooks/useQuizzAPI"
 import Question from "../components/Question";
 import { useSelector } from 'react-redux';
@@ -29,9 +30,6 @@ export default function QuizzScreen()
                 <View style={styles.quizzApp}>
                     <View style={styles.answerCount}>
                         <AnswerCount listQuizz={listQuizz} quizzIndex={quizzIndex} />
-                    </View>
-
-                    <View style={styles.dottedLine}>
                         <DashedLine dashLength={5} dashColor="#667186" />
                     </View>
 
@@ -45,6 +43,7 @@ export default function QuizzScreen()
                                 <AnswerBox answer={answer} />
                             ))
                         }
+                        <NextQuizz />
                     </View>
                 </View>
             }
@@ -64,11 +63,8 @@ const styles = StyleSheet.create({
     answerCount: {
         flex: 1,
         top: 20,
-        left: 10
-    },
-    dottedLine: {
-        flex: 1,
-        alignSelf: "center"
+        left: 10,
+        marginBottom: 15
     },
     question: {
         flex: 1,

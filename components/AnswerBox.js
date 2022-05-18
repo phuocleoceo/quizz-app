@@ -21,6 +21,6 @@ const styles = StyleSheet.create({
         margin: 10
     },
     answerContent: {
-        color: "white"
+        color: "#b5aeae"
     }
 });
