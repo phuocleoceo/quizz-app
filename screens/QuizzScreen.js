@@ -23,6 +23,12 @@ export default function QuizzScreen()
         load_quizz();
     }, []);
 
+    const handleNextQuizz = async () =>
+    {
+        await Set_Current_Quizz(quizzIndex + 1);
+        setQuizzIndex(quizzIndex => quizzIndex + 1);
+    }
+
     return (
         <View style={styles.container}>
             {
@@ -39,11 +45,11 @@ export default function QuizzScreen()
 
                     <View style={styles.answer}>
                         {
-                            currentQuizz.choices.map(answer => (
-                                <AnswerBox answer={answer} />
+                            currentQuizz.choices.map((answer, index) => (
+                                <AnswerBox key={index} answer={answer} />
                             ))
                         }
-                        <NextQuizz />
+                        <NextQuizz onNextQuizz={handleNextQuizz} />
                     </View>
                 </View>
             }

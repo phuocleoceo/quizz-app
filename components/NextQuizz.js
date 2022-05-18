@@ -1,11 +1,11 @@
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import React from "react";
 
-export default function NextQuizz()
+export default function NextQuizz({ onNextQuizz })
 {
 
     return (
-        <TouchableOpacity style={styles.nextButton}>
+        <TouchableOpacity style={styles.nextButton} onPress={onNextQuizz}>
             <Text style={styles.buttonText}>Next</Text>
         </TouchableOpacity>
     )
