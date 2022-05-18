@@ -3,7 +3,9 @@ import React from "react";
 
 export default function NextQuizz({ onNextQuizz })
 {
-
+    /*
+    onNextQuizz : hàm chuyển sang câu tiếp theo
+    */
     return (
         <TouchableOpacity style={styles.nextButton} onPress={onNextQuizz}>
             <Text style={styles.buttonText}>Next</Text>
@@ -24,6 +26,6 @@ const styles = StyleSheet.create({
     buttonText: {
         color: "#d1cdcd",
         textAlign: "center",
-        fontSize: 15
+        fontSize: 17
     }
 });

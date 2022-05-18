@@ -3,7 +3,9 @@ import React from "react";
 
 export default function Question({ currentQuizz })
 {
-
+    /*
+    currentQuizz : câu hỏi hiện tại
+    */
     return (
         <Text style={styles.questionContent}>
             {currentQuizz.question}

@@ -13,6 +13,7 @@ export default function QuizzScreen()
     const { listQuizz, isLoading, currentQuizz } = useSelector(state => state.quizz);
     const { Load_Quizz_API, Set_Current_Quizz } = useQuizzAPI();
     const [quizzIndex, setQuizzIndex] = useState(0);
+    const [quizzChoosen, setQuizzChoosen] = useState(-1);
 
     useEffect(() =>
     {
@@ -25,9 +26,18 @@ export default function QuizzScreen()
 
     const handleNextQuizz = async () =>
     {
+        // Chuyển câu
         await Set_Current_Quizz(quizzIndex + 1);
+        // Set lại index của câu hiện tại trong listQuizz
         setQuizzIndex(quizzIndex => quizzIndex + 1);
-    }
+        // Reset index của câu trả lời được chọn
+        setQuizzChoosen(-1);
+    };
+
+    const handleChoosen = (index) =>
+    {
+        setQuizzChoosen(index);
+    };
 
     return (
         <View style={styles.container}>
@@ -46,7 +56,11 @@ export default function QuizzScreen()
                     <View style={styles.answer}>
                         {
                             currentQuizz.choices.map((answer, index) => (
-                                <AnswerBox key={index} answer={answer} />
+                                index === quizzChoosen ?
+                                    <AnswerBox key={index} answer={answer} isChoosen={true}
+                                        index={index} onChoosen={handleChoosen} />
+                                    : <AnswerBox key={index} answer={answer} isChoosen={false}
+                                        index={index} onChoosen={handleChoosen} />
                             ))
                         }
                         <NextQuizz onNextQuizz={handleNextQuizz} />
