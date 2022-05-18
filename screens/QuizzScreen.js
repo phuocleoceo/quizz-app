@@ -6,6 +6,7 @@ import { StyleSheet, View } from 'react-native';
 import NextQuizz from "../components/NextQuizz";
 import useQuizzAPI from "../hooks/useQuizzAPI"
 import Question from "../components/Question";
+import Loading from "../components/Loading";
 import { useSelector } from 'react-redux';
 
 export default function QuizzScreen()
@@ -42,30 +43,33 @@ export default function QuizzScreen()
     return (
         <View style={styles.container}>
             {
-                !isLoading &&
-                <View style={styles.quizzApp}>
-                    <View style={styles.answerCount}>
-                        <AnswerCount listQuizz={listQuizz} quizzIndex={quizzIndex} />
-                        <DashedLine dashLength={5} dashColor="#667186" />
-                    </View>
+                !isLoading ?
+                    <View style={styles.quizzApp}>
+                        <View style={styles.answerCount}>
+                            <AnswerCount listQuizz={listQuizz} quizzIndex={quizzIndex} />
+                            <DashedLine dashLength={5} dashColor="#667186" />
+                        </View>
 
-                    <View style={styles.question}>
-                        <Question currentQuizz={currentQuizz} />
-                    </View>
+                        <View style={styles.question}>
+                            <Question currentQuizz={currentQuizz} />
+                        </View>
 
-                    <View style={styles.answer}>
-                        {
-                            currentQuizz.choices.map((answer, index) => (
-                                index === quizzChoosen ?
-                                    <AnswerBox key={index} answer={answer} isChoosen={true}
-                                        index={index} onChoosen={handleChoosen} />
-                                    : <AnswerBox key={index} answer={answer} isChoosen={false}
-                                        index={index} onChoosen={handleChoosen} />
-                            ))
-                        }
-                        <NextQuizz onNextQuizz={handleNextQuizz} />
+                        <View style={styles.answer}>
+                            {
+                                currentQuizz.choices.map((answer, index) => (
+                                    index === quizzChoosen ?
+                                        <AnswerBox key={index} answer={answer} isChoosen={true}
+                                            index={index} onChoosen={handleChoosen} />
+                                        : <AnswerBox key={index} answer={answer} isChoosen={false}
+                                            index={index} onChoosen={handleChoosen} />
+                                ))
+                            }
+                            <NextQuizz onNextQuizz={handleNextQuizz} />
+                        </View>
+                    </View> :
+                    <View style={styles.loadingIndicator}>
+                        <Loading />
                     </View>
-                </View>
             }
         </View>
     )
@@ -93,4 +97,9 @@ const styles = StyleSheet.create({
     answer: {
         flex: 6
     },
+    loadingIndicator: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center"
+    }
 });
