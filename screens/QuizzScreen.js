@@ -1,13 +1,16 @@
-import { StyleSheet, View, Text } from 'react-native';
 import React, { useEffect, useState } from 'react';
+import AnswerCount from "../components/AnswerCount";
 import DashedLine from 'react-native-dashed-line';
+import AnswerBox from "../components/AnswerBox";
+import { StyleSheet, View } from 'react-native';
 import useQuizzAPI from "../hooks/useQuizzAPI"
+import Question from "../components/Question";
 import { useSelector } from 'react-redux';
 
 export default function QuizzScreen()
 {
     const { listQuizz, isLoading, currentQuizz } = useSelector(state => state.quizz);
-    const { Load_Quizz_API } = useQuizzAPI();
+    const { Load_Quizz_API, Set_Current_Quizz } = useQuizzAPI();
     const [quizzIndex, setQuizzIndex] = useState(0);
 
     useEffect(() =>
@@ -24,11 +27,8 @@ export default function QuizzScreen()
             {
                 !isLoading &&
                 <View style={styles.quizzApp}>
-                    <View style={styles.topBar}>
-                        <Text style={styles.currentCount}>
-                            Question {quizzIndex}/
-                            <Text style={styles.quizzLength}>{listQuizz.length}</Text>
-                        </Text>
+                    <View style={styles.answerCount}>
+                        <AnswerCount listQuizz={listQuizz} quizzIndex={quizzIndex} />
                     </View>
 
                     <View style={styles.dottedLine}>
@@ -36,15 +36,13 @@ export default function QuizzScreen()
                     </View>
 
                     <View style={styles.question}>
-                        <Text style={styles.questionContent}>
-                            {currentQuizz.question}
-                        </Text>
+                        <Question currentQuizz={currentQuizz} />
                     </View>
 
                     <View style={styles.answer}>
                         {
-                            currentQuizz.choices.map(c => (
-                                <Text>{c}</Text>
+                            currentQuizz.choices.map(answer => (
+                                <AnswerBox answer={answer} />
                             ))
                         }
                     </View>
@@ -63,34 +61,20 @@ const styles = StyleSheet.create({
     quizzApp: {
         flex: 1
     },
-    topBar: {
+    answerCount: {
         flex: 1,
-        top: 20
+        top: 20,
+        left: 10
     },
-    currentCount: {
-        fontSize: 25,
-        fontWeight: "bold",
-        color: "#667186",
-    },
-    quizzLength: {
-        fontSize: 12,
-        color: "#667186"
-    },
-
     dottedLine: {
         flex: 1,
         alignSelf: "center"
     },
-
     question: {
         flex: 1,
+        left: 10
     },
-    questionContent: {
-        color: "white",
-        fontSize: 15,
-    },
-
     answer: {
         flex: 6
-    }
+    },
 });
