@@ -64,15 +64,10 @@ export default function QuizzScreen()
                         <View style={styles.answer}>
                             {
                                 currentQuizz.choices.map((answer, index) => (
-                                    index === quizzChoosen
-                                        ?
-                                        <AnswerBox key={index} answer={answer} isChoosen={true}
-                                            index={index} onChoosen={handleChoosen}
-                                            isPressed={isPressed} trueAnswer={currentQuizz.answer} />
-                                        :
-                                        <AnswerBox key={index} answer={answer} isChoosen={false}
-                                            index={index} onChoosen={handleChoosen}
-                                            isPressed={isPressed} trueAnswer={currentQuizz.answer} />
+                                    <AnswerBox key={index} answer={answer} quizzChoosen={quizzChoosen}
+                                        index={index} onChoosen={handleChoosen}
+                                        isPressed={isPressed} trueAnswer={currentQuizz.answer} />
+
                                 ))
                             }
                             <NextQuizz onNextQuizz={handleNextQuizz} />
